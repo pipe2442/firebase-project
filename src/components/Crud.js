@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { firebase } from "../firebase";
 import { useForm } from "react-hook-form";
+import { clear } from "@testing-library/user-event/dist/clear";
 
 function PeopleList({ list, deleteUser, update }) {
   return (
@@ -35,13 +36,13 @@ function PeopleList({ list, deleteUser, update }) {
   );
 }
 
-function Form({ recall, setRecall, user, updateForm, setUpdateForm}) {
+function Form({ recall, setRecall, user, updateForm, setUpdateForm }) {
   const db = firebase.firestore();
 
   const update = async (user, id) => {
     try {
-      const test = await db.collection("people").doc(id).get()
-      console.warn('REQUESTING USER', test)
+      const test = await db.collection("people").doc(id).get();
+      console.warn("REQUESTING USER", test);
       await db.collection("people").doc(id).update({
         address: user.address,
         age: user.age,
@@ -65,18 +66,22 @@ function Form({ recall, setRecall, user, updateForm, setUpdateForm}) {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    
     if (updateForm) {
       update(data, user.id);
-      
     } else {
       console.log(data);
       await db.collection("people").add(data);
       setRecall(!recall);
     }
-    
+
     reset();
   };
+
+  const cancelUpdate = () => {
+    reset()
+    setUpdateForm(false)
+  }
+  console.warn('EDIT USER', user)
 
   return (
     <>
@@ -94,8 +99,9 @@ function Form({ recall, setRecall, user, updateForm, setUpdateForm}) {
               id="username"
               type="text"
               placeholder={updateForm ? user.username : "Username"}
-              {...register("username")}
+              {...register("username", { required: true })}
             />
+            <div className="my-3">{errors.password && <span>This field is required</span>}</div>
           </div>
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">
@@ -106,8 +112,9 @@ function Form({ recall, setRecall, user, updateForm, setUpdateForm}) {
               id="username"
               type="text"
               placeholder={updateForm ? user.name : "Full Name"}
-              {...register("name")}
+              {...register("name", { required: true })}
             />
+            <div className="my-3">{errors.password && <span>This field is required</span>}</div>
           </div>
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">
@@ -118,8 +125,9 @@ function Form({ recall, setRecall, user, updateForm, setUpdateForm}) {
               id="Age"
               type="number"
               placeholder={updateForm ? user.age : "Age"}
-              {...register("age")}
+              {...register("age", { required: true })}
             />
+            <div className="my-3">{errors.password && <span>This field is required</span>}</div>
           </div>
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">
@@ -130,8 +138,9 @@ function Form({ recall, setRecall, user, updateForm, setUpdateForm}) {
               id="address"
               type="text"
               placeholder={updateForm ? user.address : "Address"}
-              {...register("address")}
+              {...register("address", { required: true })}
             />
+            <div className="my-3">{errors.password && <span>This field is required</span>}</div>
           </div>
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">
@@ -141,9 +150,10 @@ function Form({ recall, setRecall, user, updateForm, setUpdateForm}) {
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="country"
               type="text"
-              placeholder={updateForm ? user.country : "Country"}
-              {...register("country")}
+              placeholder={updateForm ? user.address : "Address"}
+              {...register("country", { required: true })}
             />
+            <div className="my-3">{errors.password && <span>This field is required</span>}</div>
           </div>
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">
@@ -154,8 +164,9 @@ function Form({ recall, setRecall, user, updateForm, setUpdateForm}) {
               id="city"
               type="text"
               placeholder={updateForm ? user.city : "City"}
-              {...register("city")}
+              {...register("city", { required: true })}
             />
+            <div className="my-3">{errors.password && <span>This field is required</span>}</div>
           </div>
           <div class="mb-6">
             <label class="block text-gray-700 text-sm font-bold mb-2">
@@ -175,8 +186,17 @@ function Form({ recall, setRecall, user, updateForm, setUpdateForm}) {
               class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
             >
-              Save
+              {updateForm ? "Update" : "Save"}
             </button>
+            {updateForm && (
+              <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit"
+                onClick={() => cancelUpdate()}
+              >
+                Cancel Update
+              </button>
+            )}
           </div>
         </form>
       </div>
@@ -217,7 +237,7 @@ function Crud() {
       const aux = list.filter((item) => item.id !== id);
       setList(aux);
     } catch (error) {
-      console.warn('ERROR DELETE',error);
+      console.warn("ERROR DELETE", error);
     }
   };
 
