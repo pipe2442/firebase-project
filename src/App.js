@@ -1,11 +1,10 @@
-import Form from "./components/Form";
 import "./App.css";
+import Crud from "./components/Crud";
 
 function App() {
   return (
     <>
-      <h2>Hello world</h2>
-      <Form />
+      <Crud />
     </>
   );
 }
