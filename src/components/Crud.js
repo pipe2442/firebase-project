@@ -93,7 +93,7 @@ function Form({ recall, setRecall, user, updateForm, setUpdateForm}) {
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="username"
               type="text"
-              placeholder={user ? user.username : "Username"}
+              placeholder={updateForm ? user.username : "Username"}
               {...register("username")}
             />
           </div>
@@ -105,7 +105,7 @@ function Form({ recall, setRecall, user, updateForm, setUpdateForm}) {
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="username"
               type="text"
-              placeholder={user ? user.name : "Full Name"}
+              placeholder={updateForm ? user.name : "Full Name"}
               {...register("name")}
             />
           </div>
@@ -117,7 +117,7 @@ function Form({ recall, setRecall, user, updateForm, setUpdateForm}) {
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="Age"
               type="number"
-              placeholder={user ? user.age : "Age"}
+              placeholder={updateForm ? user.age : "Age"}
               {...register("age")}
             />
           </div>
@@ -129,7 +129,7 @@ function Form({ recall, setRecall, user, updateForm, setUpdateForm}) {
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="address"
               type="text"
-              placeholder={user ? user.address : "Address"}
+              placeholder={updateForm ? user.address : "Address"}
               {...register("address")}
             />
           </div>
@@ -141,7 +141,7 @@ function Form({ recall, setRecall, user, updateForm, setUpdateForm}) {
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="country"
               type="text"
-              placeholder={user ? user.country : "Country"}
+              placeholder={updateForm ? user.country : "Country"}
               {...register("country")}
             />
           </div>
@@ -153,7 +153,7 @@ function Form({ recall, setRecall, user, updateForm, setUpdateForm}) {
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="city"
               type="text"
-              placeholder={user ? user.city : "City"}
+              placeholder={updateForm ? user.city : "City"}
               {...register("city")}
             />
           </div>
