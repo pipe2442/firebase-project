@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { firebase } from "../firebase";
 import { useForm } from "react-hook-form";
-import { clear } from "@testing-library/user-event/dist/clear";
 
 function PeopleList({ list, deleteUser, update }) {
   return (
