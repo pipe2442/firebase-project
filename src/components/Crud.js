@@ -4,34 +4,57 @@ import { useForm } from "react-hook-form";
 
 function PeopleList({ list, deleteUser, update }) {
   return (
-    <>
+    <div class="w-full mx-auto flex my-8 flex-wrap">
       {list.map((user) => (
-        <div className="m-4">
-          <h3>{user.name}</h3>
-          <p>{user.username}</p>
-          <p>{user.id}</p>
-          <p>{user.age}</p>
-          <p>{user.address}</p>
-          <p>{user.country}</p>
-          <p>{user.city}</p>
-          <p>{user.password}</p>
-          <button
-            class=" block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="button"
-            onClick={() => update(user.id, user)}
-          >
-            Update
-          </button>
-          <button
-            class="block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="button"
-            onClick={() => deleteUser(user.id)}
-          >
-            Delete
-          </button>
+        <div
+          class="bg-white shadow-md rounded px-8 pt-6 pb-8 m-4"
+          key={user.id}
+        >     
+          <div class="mb-4">
+            <div class="block text-gray-700 text-sm font-bold mb-2">
+              <h3>{user.name}</h3>
+            </div>
+            <div class="block text-gray-700 text-sm font-bold mb-2">
+              <p>{user.username}</p>
+            </div>
+            <div class="block text-gray-700 text-sm font-bold mb-2">
+              <p>{user.id}</p>
+            </div>
+            <div class="block text-gray-700 text-sm font-bold mb-2">
+              <p>{user.age}</p>
+            </div>
+            <div class="block text-gray-700 text-sm font-bold mb-2">
+              <p>{user.address}</p>
+            </div>
+            <div class="block text-gray-700 text-sm font-bold mb-2">
+              <p>{user.country}</p>
+            </div>
+            <div class="block text-gray-700 text-sm font-bold mb-2">
+              <p>{user.city}</p>
+            </div>
+            <div class="block text-gray-700 text-sm font-bold mb-2">
+              <p>{user.password}</p>
+            </div>
+          </div>
+          <div className="flex">
+            <button
+              class="mx-2 block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="button"
+              onClick={() => update(user.id, user)}
+            >
+              Update
+            </button>
+            <button
+              class="mx-2 block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="button"
+              onClick={() => deleteUser(user.id)}
+            >
+              Delete
+            </button>
+          </div>
         </div>
       ))}
-    </>
+    </div>
   );
 }
 
@@ -84,7 +107,7 @@ function Form({ recall, setRecall, user, updateForm, setUpdateForm }) {
 
   return (
     <>
-      <div class="w-full max-w-xs">
+      <div class="w-full max-w-xs mx-auto my-8">
         <form
           class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
           onSubmit={handleSubmit(onSubmit)}
@@ -246,16 +269,20 @@ function Crud() {
   };
 
   return (
-    <>
-      <Form
-        recall={recall}
-        setRecall={setRecall}
-        updateForm={updateForm}
-        setUpdateForm={setUpdateForm}
-        user={updateUser}
-      />
-      <PeopleList list={list} deleteUser={deleteUser} update={update} />
-    </>
+    
+      <div className="mx-auto">
+        <h1 className="text-lg font-bold text-center my-8">Firebase Users Registration</h1>
+        <Form
+          recall={recall}
+          setRecall={setRecall}
+          updateForm={updateForm}
+          setUpdateForm={setUpdateForm}
+          user={updateUser}
+        />
+        <h2 className="text-lg font-bold text-center my-8">Registered Users</h2>
+        <PeopleList list={list} deleteUser={deleteUser} update={update} />
+      </div>
+    
   );
 }
 
